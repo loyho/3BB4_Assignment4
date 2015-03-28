@@ -13,7 +13,7 @@ import java.util.logging.Logger;
  *
  * @author Jenell
  */
-public class Process implements Runnable {
+public class Process extends Thread {
     
     long executionTime;
     int id;
@@ -66,7 +66,7 @@ public class Process implements Runnable {
     }
 
     
-    public int getId() {
+    public int getid(){
         return this.id;
     }
     
