@@ -3,7 +3,7 @@ package rrscheduler;
 public class CPU extends Thread{
 
 	long maxExecutionTime;
-	GrimReaper reaper;
+	
 	Process loadedThread;
     
 	
@@ -13,13 +13,13 @@ public class CPU extends Thread{
 		
 	}
 	
-	public CPU(long maxExecution,GrimReaper reaper){
+	public CPU(long maxExecution){
 		maxExecutionTime=maxExecution;
-		this.reaper=reaper;
+		
 		loadedThread=null;
 	}
 	private void unload(){
-		reaper.checkTime(loadedThread);
+		RRScheduler.reaper.checkTime(loadedThread);
 		loadedThread=null;
 		generateMessage();
 	}

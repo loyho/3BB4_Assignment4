@@ -4,16 +4,36 @@
  */
 package rrscheduler;
 
+import java.util.Random;
+
 /**
  *
  * @author Jenell
  */
 public class RRScheduler {
-
+    
+    public static ReadyQueue readyQueue;
+    public static Generator generator;
+    public static CPU cpu;
+    public static GrimReaper reaper;
+    public static Dispatcher dispatcher;
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        
+        Random r=new Random();
+        long maxExecutionTime = r.nextLong();
+        
+        readyQueue=new ReadyQueue();
+        generator=new Generator();
+        reaper=new GrimReaper();
+        cpu=new CPU(maxExecutionTime);
+        dispatcher=new Dispatcher();
+        
+        generator.run();
+        dispatcher.run();
+        
+        
     }
 }

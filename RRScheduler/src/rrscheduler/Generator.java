@@ -1,29 +1,46 @@
-import java.util.Random;
-package rrscheduler
+package rrscheduler;
 
-public class Generator implements GeneratorInterface {
-	int processCount;
-	int waiting;
+
+
+public class Generator implements Runnable {
+	int processCount;	
 	Process t;
+	   
 
-	RRScheduler scheduler;
-	ReadyQueue readyQ;    
-
-    public void Generator(ReadyQueue readyQ){
-        this.readyQ=scheduler.readyQ;
+   
+    public Generator(){
+        
     }
-	private void enqueue(){
+    
+    
+	
+    
+    
+    private void enqueue() throws InterruptedException{
 		t=new Process(processCount);
-		readyQ.enqueue(t);
+		RRScheduler.readyQueue.enqueue(t);
+                processCount++;
+                
+                
 		
 		
 	}
-	private void checkQueue(){
-        waiting = readyQ.threadQueue.length;
-	}
-	private void generateMessage(){
+	
+	
+    private void generateMessage(){
 		System.out.format("Process %d loaded into ready Queue",t.id);
 	}
+
+    @Override
+    public void run() {
+        while(true){
+            
+            try {
+                enqueue();
+            } catch (InterruptedException ex) {
+            }
+        }
+    }
 
 	
 }

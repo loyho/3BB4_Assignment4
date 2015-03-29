@@ -1,11 +1,13 @@
-package rrscheduler
-public class GrimReaper {
+package rrscheduler;
+
+
+public class GrimReaper implements Runnable {
 	
 	Process currentThread;
-	ReadyQueue readyQ;
+	
 	long timeLeft;
-	public GrimReaper(ReadyQueue readyQ){
-		this.readyQ=readyQ;
+	public GrimReaper(){
+		
 		currentThread=null;
 
 	}
@@ -33,10 +35,22 @@ public class GrimReaper {
 	}
 
 	public void backInQueue(Process p){
-		readyQ.enqueue(p);
+		try {
+			RRScheduler.readyQueue.enqueue(p);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	public void dequeue(){
-		readyQ.dequeue();
+		RRScheduler.readyQueue.dequeue();
+		
+	}
+
+	@Override
+	public void run() {
+		
+		// TODO Auto-generated method stub
 		
 	}
 }

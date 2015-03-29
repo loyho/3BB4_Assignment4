@@ -14,13 +14,11 @@ import java.util.logging.Logger;
  * @author Jenell
  */
 class Dispatcher extends Thread{
-    static ReadyQueue readyQ;
-    static CPU cpu;
+    
     private Process processSelected;
     
-    public Dispatcher(ReadyQueue ready,CPU c){
-        Dispatcher.readyQ=ready;
-        Dispatcher.cpu=c;
+    public Dispatcher(){
+        
     }
     
     
@@ -41,10 +39,11 @@ class Dispatcher extends Thread{
     
     private void select() throws InterruptedException{
       
-      this.processSelected=readyQ.select();
-      cpu.load(processSelected);
-      cpu.run();
-      cpu.join(); //Wait for cpu to finish executing
+      this.processSelected=RRScheduler.readyQueue.select();
+      
+      RRScheduler.cpu.load(processSelected);
+      RRScheduler.cpu.run();
+      RRScheduler.cpu.join(); //Wait for cpu to finish executing
       
     }
     
