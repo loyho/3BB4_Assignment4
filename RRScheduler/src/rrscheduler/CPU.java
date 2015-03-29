@@ -1,9 +1,11 @@
-package rrscheduler
-public class CPU implements CPUInterface {
+package rrscheduler;
+
+public class CPU extends Thread{
 
 	long maxExecutionTime;
 	GrimReaper reaper;
 	Process loadedThread;
+    
 	
 	public void load(Process p){
 		loadedThread = p;
@@ -22,18 +24,18 @@ public class CPU implements CPUInterface {
 		generateMessage();
 	}
 	private void execute(){
-		loadedThread.run();
-		try {
-			wait(maxExecutionTime);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		loadedThread.notify();	
-		generateMessage();
+		loadedThread.updateTime(maxExecutionTime);
+                loadedThread.run();
 	}
 	private void generateMessage(){
 		System.out.format("Process %d executed for %d seconds",loadedThread.id,loadedThread.executionTime);
 	}
+
+    @Override
+    public void run() {
+        execute();
+        unload();
+        
+    }
 }
 

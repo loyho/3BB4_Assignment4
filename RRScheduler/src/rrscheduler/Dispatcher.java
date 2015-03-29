@@ -43,9 +43,13 @@ class Dispatcher extends Thread{
       
       this.processSelected=readyQ.select();
       cpu.load(processSelected);
+      cpu.run();
       cpu.join(); //Wait for cpu to finish executing
       
     }
+    
+    
+    
     
     private void generateMessage(){
         String message="Process ";

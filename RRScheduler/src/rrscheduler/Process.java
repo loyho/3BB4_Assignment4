@@ -17,6 +17,7 @@ public class Process extends Thread {
     
     long executionTime;
     int id;
+    long runTime;
     
     
     public Process(int id){
@@ -31,7 +32,8 @@ public class Process extends Thread {
     @Override
     public void run() {
         try {
-            wait(executionTime);      
+            wait(runTime);
+            
         
         }
         
@@ -52,10 +54,13 @@ public class Process extends Thread {
         
         if(newTime>0){
             executionTime=newTime;
+            runTime=cpuRunTime;
             return executionTime;
+            
         }
         else{
-            this.executionTime=0;
+            runTime=executionTime;
+            this.executionTime=0;      
             return r;
         }
     }
@@ -64,11 +69,17 @@ public class Process extends Thread {
     public long checkTime() {
         return executionTime;
     }
+    
+    public long checkRunTime(){
+        return runTime;
+    }
 
     
     public int getid(){
         return this.id;
     }
+
+
     
     
     
