@@ -15,6 +15,7 @@ package rrscheduler;
 public class ReadyQueue {
     int waiting;
     Process[] threadQueue;
+    boolean isLoaded=false;
     
     
     public ReadyQueue(){
@@ -44,7 +45,7 @@ public class ReadyQueue {
     public synchronized void enqueue(Process process) throws InterruptedException{
         
         //While the thread is full, wait...
-        while(isFull()){
+        while(isFull()||isLoaded){
             wait();
         }
   
@@ -76,8 +77,8 @@ public class ReadyQueue {
         //Update state variables to reflect the size of the queue
         waiting=waiting-1;
         
-        
-        notifyAll();
+        isLoaded=false;
+        notify();
         //There's a new space in the queue, so notifyAll the threads that are waiting 
             
     }
@@ -101,7 +102,8 @@ public class ReadyQueue {
         threadQueue[index]=p;
         
         //Notify the generator and dispatcher
-        notifyAll();
+        isLoaded=false;
+        notify();
         
         
     }
@@ -117,7 +119,7 @@ public class ReadyQueue {
             wait();
             boolean isEmpty=isEmpty();
         }
-        
+        isLoaded=true;
         return threadQueue[0];
     }
 
@@ -127,11 +129,9 @@ public class ReadyQueue {
         if (waiting==0){
             return 0;
         }
-        else if (waiting==threadQueue.length){
-            return -1;
-        }
+        
         else{
-            return waiting+1;
+            return waiting-1;
         }
     }
 

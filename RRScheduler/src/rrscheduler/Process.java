@@ -15,15 +15,22 @@ import java.util.logging.Logger;
  */
 public class Process extends Thread {
     
-    long executionTime;
+    int remainingExecutionTime;
     int id;
     long runTime;
     
+    private int randInt(int min, int max){
+        //Generates a random integer inbetween the range min,max
+        Random r=new Random();
+        int randomNum=r.nextInt((max-min)+1)+min;
+        return randomNum;
+        
+    }
     
     public Process(int id){
         this.id=id;
-        Random r=new Random();
-        executionTime=r.nextLong();
+        
+        remainingExecutionTime=randInt(1000,7000);
         
     }
     
@@ -33,7 +40,7 @@ public class Process extends Thread {
     public void run() {
         try {
             
-            sleep(100);
+            sleep(this.runTime);
             
         
         }
@@ -49,26 +56,26 @@ public class Process extends Thread {
  
 
     
-    public long updateTime(long cpuRunTime) {
-        long newTime=(executionTime-cpuRunTime);
-        long r=executionTime;
+    public long updateTime(int cpuRunTime) {
+        int newTime=(remainingExecutionTime-cpuRunTime);
+        int r=remainingExecutionTime;
         
         if(newTime>0){
-            executionTime=newTime;
+            remainingExecutionTime=newTime;
             runTime=cpuRunTime;
-            return executionTime;
+            return remainingExecutionTime;
             
         }
         else{
-            runTime=executionTime;
-            this.executionTime=0;      
+            runTime=remainingExecutionTime;
+            this.remainingExecutionTime=0;      
             return r;
         }
     }
 
     
     public long checkTime() {
-        return executionTime;
+        return remainingExecutionTime;
     }
     
     public long checkRunTime(){

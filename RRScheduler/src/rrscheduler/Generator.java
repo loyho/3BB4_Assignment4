@@ -9,7 +9,7 @@ public class Generator extends Thread {
 
    
     public Generator(){
-        
+        processCount=0;
     }
     
     
@@ -18,6 +18,7 @@ public class Generator extends Thread {
     
     private void enqueue() throws InterruptedException{
 		t=new Process(processCount);
+                generateMessage();
 		RRScheduler.readyQueue.enqueue(t);
                 processCount++;
                 
@@ -28,7 +29,7 @@ public class Generator extends Thread {
 	
 	
     private void generateMessage(){
-		System.out.format("Process %d loaded into ready Queue",t.id);
+		System.out.format("Process %d loaded into ready Queue\n",t.id);
 	}
 
     @Override
@@ -36,8 +37,10 @@ public class Generator extends Thread {
         while(true){
             
             try {
+                
+                
                 enqueue();
-                generateMessage();
+                
             } catch (InterruptedException ex) {
             }
         }

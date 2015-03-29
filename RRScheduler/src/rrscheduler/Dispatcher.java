@@ -14,7 +14,7 @@ import java.util.logging.Logger;
  * @author Jenell
  */
 class Dispatcher extends Thread{
-    
+    private CPU cpu;
     private Process processSelected;
     
     public Dispatcher(){
@@ -27,7 +27,7 @@ class Dispatcher extends Thread{
         while(true){
             try {
                 this.select();
-                generateMessage();
+                
             } 
             
             
@@ -41,9 +41,11 @@ class Dispatcher extends Thread{
       
       this.processSelected=RRScheduler.readyQueue.select();
       generateMessage();
-      RRScheduler.cpu.load(processSelected);
-      RRScheduler.cpu.start();
-      RRScheduler.cpu.join(); //Wait for cpu to finish executing
+      
+      CPU cpu=new CPU(5000);
+      cpu.load(processSelected);
+      cpu.start();
+      cpu.join();
       
     }
     
