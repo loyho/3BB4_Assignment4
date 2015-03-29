@@ -40,9 +40,9 @@ class Dispatcher extends Thread{
     private void select() throws InterruptedException{
       
       this.processSelected=RRScheduler.readyQueue.select();
-      
+      generateMessage();
       RRScheduler.cpu.load(processSelected);
-      RRScheduler.cpu.run();
+      RRScheduler.cpu.start();
       RRScheduler.cpu.join(); //Wait for cpu to finish executing
       
     }

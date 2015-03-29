@@ -113,7 +113,9 @@ public class ReadyQueue {
     public synchronized Process select() throws InterruptedException{
         
         while(isEmpty()){
+            
             wait();
+            boolean isEmpty=isEmpty();
         }
         
         return threadQueue[0];

@@ -31,8 +31,8 @@ public class RRScheduler {
         cpu=new CPU(maxExecutionTime);
         dispatcher=new Dispatcher();
         
-        generator.run();
-        dispatcher.run();
+        generator.start();
+        dispatcher.start();
         
         
     }

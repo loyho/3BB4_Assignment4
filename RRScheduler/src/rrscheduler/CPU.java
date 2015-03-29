@@ -28,7 +28,7 @@ public class CPU extends Thread{
                 loadedThread.run();
 	}
 	private void generateMessage(){
-		System.out.format("Process %d executed for %d seconds",loadedThread.id,loadedThread.executionTime);
+		System.out.format("Process %d executed for %d seconds",loadedThread.getid(),loadedThread.checkTime());
 	}
 
     @Override

@@ -2,7 +2,7 @@ package rrscheduler;
 
 
 
-public class Generator implements Runnable {
+public class Generator extends Thread {
 	int processCount;	
 	Process t;
 	   
@@ -37,6 +37,7 @@ public class Generator implements Runnable {
             
             try {
                 enqueue();
+                generateMessage();
             } catch (InterruptedException ex) {
             }
         }

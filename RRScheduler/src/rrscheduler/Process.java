@@ -32,7 +32,8 @@ public class Process extends Thread {
     @Override
     public void run() {
         try {
-            wait(runTime);
+            
+            sleep(100);
             
         
         }
