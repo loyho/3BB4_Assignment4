@@ -1,5 +1,8 @@
 package rrscheduler;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 public class GrimReaper extends Thread {
 	
@@ -14,7 +17,7 @@ public class GrimReaper extends Thread {
 	}
 	
 	
-	public void judge(){
+	private void checkTime(){
 		int timeLeft=currentThread.checkTime();
                 
 		if (timeLeft>0){
@@ -25,20 +28,40 @@ public class GrimReaper extends Thread {
 		}
 		}
 	
-	public void generateMessage(int id,long x){
+	private void generateMessage(int id,long x){
 		System.out.format("Process %d recycled into ready queeu with %d seconds remaining}\n", id,x);
+            
+                
+                
+            //Sleep for a while so the messages don't print out too fast    
+            try {                
+                sleep(RRScheduler.messageTime);
+            
+            
+            } catch (InterruptedException ex) {
+                Logger.getLogger(GrimReaper.class.getName()).log(Level.SEVERE, null, ex);
+            }
 	}
-	public void generateMessage(){
+	private void generateMessage(){
                 
 		System.out.format("Process %d finished executing\n", currentThread.getid());
+            
+                //Sleep for a while so the messages don't print out too fast
+                try {
+                sleep(RRScheduler.messageTime);
+            
+            
+            } catch (InterruptedException ex) {
+                Logger.getLogger(GrimReaper.class.getName()).log(Level.SEVERE, null, ex);
+            }
 	}
 
-	public void backInQueue(Process p){
+	private void backInQueue(Process p){
 		
 			RRScheduler.readyQueue.backInQueue(p);
 		
 	}
-	public void dequeue(){
+	private void dequeue(){
 		RRScheduler.readyQueue.dequeue();
 		
 	}
@@ -47,14 +70,14 @@ public class GrimReaper extends Thread {
 	public void run() {
 		
 		// TODO Auto-generated method stub
-            this.judge();
+            this.checkTime();
             generateMessage();
                 
                 
 		
 	}
 
-    void give(Process loadedThread) {
+    public void give(Process loadedThread) {
         this.currentThread=loadedThread;
     }
 }

@@ -12,6 +12,10 @@ import java.util.Random;
  */
 public class RRScheduler {
     
+    //A time for thread to wait after printing a message (This is so the output is more human observer-friendly.
+    public static int messageTime=500;
+    
+    
     public static ReadyQueue readyQueue;
     
     public static GrimReaper reaper;
@@ -22,7 +26,7 @@ public class RRScheduler {
     public static void main(String[] args) {
         
         Random r=new Random();
-        int maxExecutionTime=5000;
+        
         
         readyQueue=new ReadyQueue();    
         
@@ -36,4 +40,4 @@ public class RRScheduler {
         
         
     }
-}
+    }

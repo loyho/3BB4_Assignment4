@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 
 
 /**
- *hjkhk
+ *
  * @author Jenell
  */
 class Dispatcher extends Thread{
@@ -57,6 +57,12 @@ class Dispatcher extends Thread{
         String id=Integer.toString(processSelected.getid());
         message=message+id+" loaded into the CPU";
         System.out.println(message);
+        
+        try {
+            sleep(RRScheduler.messageTime);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Dispatcher.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
        
     }
