@@ -1,5 +1,8 @@
 package rrscheduler;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 
 public class Generator extends Thread {
@@ -29,7 +32,14 @@ public class Generator extends Thread {
 	
 	
     private void generateMessage(){
-		System.out.format("Process %d loaded into ready Queue\n",t.id);
+		System.out.format("Process %d loaded into ready Queue\n",t.getid());
+            
+                //This method sleeps for a time so that the messages being generated aren't printed too quickly.
+                try {                
+                sleep(RRScheduler.messageTime);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Generator.class.getName()).log(Level.SEVERE, null, ex);
+            }
 	}
 
     @Override
