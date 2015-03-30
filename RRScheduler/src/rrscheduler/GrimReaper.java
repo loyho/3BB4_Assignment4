@@ -3,9 +3,10 @@ package rrscheduler;
 
 public class GrimReaper extends Thread {
 	
-	Process currentThread;
+	private Process currentThread;
 	
-	long timeLeft;
+        
+        
 	public GrimReaper(){
 		
 		currentThread=null;
@@ -14,7 +15,8 @@ public class GrimReaper extends Thread {
 	
 	
 	public void judge(){
-		timeLeft=currentThread.checkTime();
+		int timeLeft=currentThread.checkTime();
+                
 		if (timeLeft>0){
 			backInQueue(currentThread);
 		}else{

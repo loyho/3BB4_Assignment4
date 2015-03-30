@@ -43,3 +43,5 @@ Temporary Items
 .apdisk
 /RRScheduler/build/
 /RRScheduler/dist/
+~$spatcher.docx
+*.tmp

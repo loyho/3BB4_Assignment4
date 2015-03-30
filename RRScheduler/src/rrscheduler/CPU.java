@@ -37,11 +37,18 @@ public class CPU extends Thread{
 	private void execute() throws InterruptedException{
 		
             loadedThread.updateTime(maxExecutionTime);
-                loadedThread.run();
+             loadedThread.run();
                 
 	}
 	private void generateMessage(){
 		System.out.format("Process %d executed for %d seconds\n",loadedThread.getid(),loadedThread.checkRunTime());
+            
+                //The current thread then sleeps so the output is friendly to the human eye (The messages might print to quickly otherwise)
+            try {
+                sleep(RRScheduler.messageTime);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(CPU.class.getName()).log(Level.SEVERE, null, ex);
+            }
 	}
 
     @Override

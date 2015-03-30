@@ -17,7 +17,7 @@ public class Process extends Thread {
     
     int remainingExecutionTime;
     int id;
-    long runTime;
+    int runTime;
     
     private int randInt(int min, int max){
         //Generates a random integer inbetween the range min,max
@@ -56,7 +56,7 @@ public class Process extends Thread {
  
 
     
-    public long updateTime(int cpuRunTime) {
+    public int updateTime(int cpuRunTime) {
         int newTime=(remainingExecutionTime-cpuRunTime);
         int r=remainingExecutionTime;
         
@@ -74,11 +74,11 @@ public class Process extends Thread {
     }
 
     
-    public long checkTime() {
+    public int checkTime() {
         return remainingExecutionTime;
     }
     
-    public long checkRunTime(){
+    public int checkRunTime(){
         return runTime;
     }
 
