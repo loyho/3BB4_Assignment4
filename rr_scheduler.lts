@@ -1,0 +1,31 @@
+const M=2 //max number of threads in the queue
+
+//QUEUE: this process can be regarded as responsible of holding the
+//processes ready for execution. Note that in FSP the size of the queue is
+//fixed, hence some considerations should be taken to avoid overflow (or
+//underflow) conditions.
+
+
+QUEUE=QUEUE[0],
+QUEUE[waiting:0..M] =  
+(when(waiting>0) select->WHATNOW[waiting]				//WHATNOW will decide whether to remove a thread or add back a thread which did not finish into the queue
+|when (waiting<M) add_Q[waiting+1]->QUEUE[waiting+1]			// If there is room in the queue, a thread can be added
+),
+WHATNOW[waiting:1..M]=(backInQueue->QUEUE[waiting]|remove_Q->QUEUE[waiting-1]).	// If the queue has atleast one thread waiting it can finish a process and have one 
+																				//less thing in the queue
+																				// A thread can be put back in the queue if it didn't finish executing. 
+GENERATOR=GENERATOR[0],
+GENERATOR[waiting:0..M]=
+(when(waiting<M)add_Q[waiting+1]->GENERATOR[waiting+1]		//Adds a thread to the queue if the queue is not full		
+|when(waiting>0&waiting<=M)remove_Q->GENERATOR[waiting-1]).	//Guarding Action: decrements the number of threads in it's own count of the queue
+
+DISPATCHER= (select->execute->DISPATCHER).	//Selects a process from the ready queue and sends it to the CPU for execution
+
+CPU= (execute->checkTime->CPU).	//Executes a process for some time slice (TBD)
+
+
+GRIMREAPER = (checkTime->WHATNOWGR),	//Removes a thread from the queue or if it has not finished executing, adds it back into the queue
+WHATNOWGR=(remove_Q->GRIMREAPER|backInQueue->GRIMREAPER).
+
+
+||RR_SCHEDULER = (CPU||DISPATCHER||GRIMREAPER||QUEUE||GENERATOR).
