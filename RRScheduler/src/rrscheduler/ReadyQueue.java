@@ -45,7 +45,7 @@ public class ReadyQueue {
     public synchronized void enqueue(Process process) throws InterruptedException{
         
         //While the thread is full, wait...
-        while(isFull()||isLoaded){
+        while(isFull()|isLoaded){
             wait();
         }
   
@@ -54,7 +54,7 @@ public class ReadyQueue {
         
         waiting=waiting+1;
         
-        notifyAll();
+        notify();
         
     }
 
@@ -117,7 +117,7 @@ public class ReadyQueue {
         while(isEmpty()){
             
             wait();
-            boolean isEmpty=isEmpty();
+            
         }
         isLoaded=true;
         return threadQueue[0];
@@ -144,5 +144,5 @@ public class ReadyQueue {
            return waiting-1;
        }
         
-    }   
+    }
 }

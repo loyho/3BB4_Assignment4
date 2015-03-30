@@ -6,10 +6,14 @@ import java.util.logging.Logger;
 public class CPU extends Thread{
 
 	int maxExecutionTime;
-	
+	GrimReaper reaper;
 	Process loadedThread;
 
-    
+    public CPU(int maxExecution){
+		maxExecutionTime=maxExecution;
+		
+		loadedThread=null;
+	}
 	
 	public void load(Process p){
 		loadedThread = p;
@@ -17,18 +21,14 @@ public class CPU extends Thread{
 		
 	}
 	
-	public CPU(int maxExecution){
-		maxExecutionTime=maxExecution;
-		
-		loadedThread=null;
-	}
+	
 	private void unload() throws InterruptedException{
                 
 		
 		
 		generateMessage();
                 
-                GrimReaper reaper=new GrimReaper();
+                reaper=new GrimReaper();
                 reaper.give(loadedThread);
                 reaper.start();      
                 reaper.join();
