@@ -35,7 +35,8 @@ public class CPU extends Thread{
                 
 	}
 	private void execute() throws InterruptedException{
-		loadedThread.updateTime(maxExecutionTime);
+		
+            loadedThread.updateTime(maxExecutionTime);
                 loadedThread.run();
                 
 	}

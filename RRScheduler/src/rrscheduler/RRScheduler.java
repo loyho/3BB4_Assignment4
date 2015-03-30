@@ -13,6 +13,8 @@ import java.util.Random;
 public class RRScheduler {
     
     public static ReadyQueue readyQueue;
+    
+    public static GrimReaper reaper;
    
     /**
      * @param args the command line arguments
@@ -22,11 +24,12 @@ public class RRScheduler {
         Random r=new Random();
         int maxExecutionTime=5000;
         
-        readyQueue=new ReadyQueue();
-        Generator generator = new Generator();
-        GrimReaper reaper = new GrimReaper();
+        readyQueue=new ReadyQueue();    
+        
+        
        
         Dispatcher dispatcher = new Dispatcher();
+        Generator generator = new Generator();
         
         generator.start();
         dispatcher.start();

@@ -40,7 +40,7 @@ public class Process extends Thread {
     public void run() {
         try {
             
-            sleep(this.runTime);
+            this.sleep(runTime);
             
         
         }
