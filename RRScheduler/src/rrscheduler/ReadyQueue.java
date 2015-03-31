@@ -1,11 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package rrscheduler;
-
-
-
 
 
 /**
@@ -45,7 +39,7 @@ public class ReadyQueue {
     public synchronized void enqueue(Process process) throws InterruptedException{
         
         //While the thread is full, wait...
-        while(isFull()|isLoaded){
+        while(isFull()||isLoaded){
             wait();
         }
   
@@ -54,7 +48,7 @@ public class ReadyQueue {
         
         waiting=waiting+1;
         
-        notify();
+        notifyAll();
         
     }
 
@@ -95,7 +89,8 @@ public class ReadyQueue {
                
         //Shift all the entries over
         for (int i=1;i<index;i++){
-            threadQueue[i-1]=threadQueue[i];
+        	
+            threadQueue[i-1]=this.threadQueue[i];
         }
         
         //Now, replace the last known entry with the first
@@ -117,7 +112,7 @@ public class ReadyQueue {
         while(isEmpty()){
             
             wait();
-            
+            boolean isEmpty=isEmpty();
         }
         isLoaded=true;
         return threadQueue[0];
@@ -144,5 +139,5 @@ public class ReadyQueue {
            return waiting-1;
        }
         
-    }
+    }   
 }

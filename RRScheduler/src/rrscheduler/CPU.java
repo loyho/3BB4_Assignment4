@@ -1,3 +1,4 @@
+
 package rrscheduler;
 
 import java.util.logging.Level;
@@ -41,7 +42,7 @@ public class CPU extends Thread{
                 
 	}
 	private void generateMessage(){
-		System.out.format("Process %d executed for %d seconds\n",loadedThread.getid(),loadedThread.checkRunTime());
+		System.out.format("Process %d executed for %d seconds\n",loadedThread.getid(),loadedThread.checkRunTime()/1000);
             
                 //The current thread then sleeps so the output is friendly to the human eye (The messages might print to quickly otherwise)
             try {
@@ -66,4 +67,3 @@ public class CPU extends Thread{
         
     }
 }
-

@@ -1,9 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package rrscheduler;
 
+package rrscheduler;
 
 import java.util.Random;
 import java.util.logging.Level;
@@ -24,7 +20,8 @@ public class Process extends Thread {
     public Process(int id){
         this.id=id;
         
-        remainingExecutionTime=randInt(1000,7000);
+        int num=randInt(1,7);
+        remainingExecutionTime=num*1000;
         
     }
     
